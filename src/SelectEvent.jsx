@@ -37,7 +37,7 @@ class SelectEvent extends React.Component {
                 {
                     this.state.events.map((value) => {
                        return (
-                           <div className={`event${counter++}`} key={value.id} onClick={this.props.onSelect.bind(null, value.id)}>{value.name}</div>
+                           <li className={`event${counter++}`} key={value.id} onClick={this.props.onSelect.bind(null, value.id)}>{value.name}</li>
                        )
                     })
                 }

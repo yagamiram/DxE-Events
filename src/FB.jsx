@@ -12,6 +12,7 @@ class FB extends React.Component {
         this.showEvents = this.showEvents.bind(this)
     }
     showEvents(value) {
+        console.log("inside the show events", value)
         getDxESFBayAreaEvents(value)
             .then((values) => {
                 this.setState({ items: values })
@@ -34,14 +35,12 @@ class FB extends React.Component {
                             {
                                 console.log("event cover is", event.name, event.cover)
                             }
-                            <li key={event.name}>
-                                {event.name}
-                            </li>
-                            <li>{event.start_time}</li>
-                            <li>{event.attending_count}</li>
-                            <li>{event.description}</li>
-                            <li>{event.interested_count}</li>
-                            <li>{event.cover ? event.cover.source : " no url"}</li>
+                            <li>Name: {event.name}</li>
+                            <li>Start Time: {event.start_time}</li>
+                            <li>Attending Count: {event.attending_count}</li>
+                            <li>Interested Count: {event.interested_count}</li>
+                            <li>Description: {event.description}</li>
+                            <li>Cover URL: {event.cover ? event.cover.source : " no url"}</li>
                         </div>
                     ))}
                 </div>

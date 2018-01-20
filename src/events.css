@@ -5,8 +5,10 @@
 
 .events {
     display: grid;
-    border: yellow solid;
+    border: white solid;
     grid-gap: 10px;
     grid-template-rows: auto;
     grid-template-columns: repeat(5, 1fr);
+    cursor: pointer;
+    list-style-type: none; /*to remove bullets in list*/
 }
