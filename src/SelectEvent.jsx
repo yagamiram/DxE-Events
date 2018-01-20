@@ -1,4 +1,5 @@
 import React from 'react'
+import './events.css'
 
 class SelectEvent extends React.Component {
     constructor(props) {
@@ -30,12 +31,13 @@ class SelectEvent extends React.Component {
     }
 
     render() {
+        let counter = 0;
         return (
-            <div>
+            <div className={`events`}>
                 {
                     this.state.events.map((value) => {
                        return (
-                           <li key={value.id} onClick={this.props.onSelect.bind(null, value.id)}>{value.name}</li>
+                           <div className={`event${counter++}`} key={value.id} onClick={this.props.onSelect.bind(null, value.id)}>{value.name}</div>
                        )
                     })
                 }

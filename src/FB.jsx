@@ -1,6 +1,7 @@
 import React from 'react'
 import { getDxESFBayAreaEvents }  from './utils/ApiResponse'
 import SelectEvent from "./SelectEvent";
+import './events.css';
 
 class FB extends React.Component {
     constructor(props) {
@@ -26,13 +27,24 @@ class FB extends React.Component {
         return (
             <div>
                 <SelectEvent onSelect={this.showEvents}/>
-                <ul>
+                <br/>
+                <div className="container">
                     {this.state.items.map((event, index) => (
-                        <li key={index}>
-                            {event.name}
-                        </li>
+                        <div className={`item${index}`} key={index}>
+                            {
+                                console.log("event cover is", event.name, event.cover)
+                            }
+                            <li key={event.name}>
+                                {event.name}
+                            </li>
+                            <li>{event.start_time}</li>
+                            <li>{event.attending_count}</li>
+                            <li>{event.description}</li>
+                            <li>{event.interested_count}</li>
+                            <li>{event.cover ? event.cover.source : " no url"}</li>
+                        </div>
                     ))}
-                </ul>
+                </div>
             </div>
 
         )
