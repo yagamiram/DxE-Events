@@ -1,14 +1,73 @@
 .container {
     display: grid;
     grid-gap: 70px;
+    list-style-type: none;
 }
 
 .events {
     display: grid;
-    border: white solid;
+    border: red solid;
     grid-gap: 10px;
     grid-template-rows: auto;
     grid-template-columns: repeat(5, 1fr);
     cursor: pointer;
     list-style-type: none; /*to remove bullets in list*/
+}
+
+div[class^="item"], div[class*=" item"] {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr  3fr 2fr;
+    grid-template-rows: 150px;
+    grid-template-areas: "date emptySpace picture desc count"
+}
+
+.eventTiming {
+    display: grid;
+    grid-area: date;
+    grid-template-areas:
+            "emptyrow"
+            "eventrowForMonth"
+            "eventrowForDate"
+            "eventrowForDay"
+            "eventBorder"
+}
+
+.eventEmptyRow {
+    grid-area: emptyrow;
+}
+
+.eventMonth {
+    grid-area: eventrowForMonth;
+    text-align: center;
+}
+
+.eventDate {
+    grid-area: eventrowForDate;
+    text-align: center;
+}
+
+.eventDay {
+    grid-area: eventrowForDay;
+    text-align: center;
+}
+
+.eventBorder {
+    border-bottom: orange solid;
+    border-bottom-width: 10px;
+}
+
+.eventEmptySpace {
+    grid-area: emptySpace;
+}
+
+.eventPicture {
+    grid-area: picture;
+}
+
+.eventDescription {
+    grid-area: desc;
+}
+
+.eventCount {
+    grid-area: count;
 }
