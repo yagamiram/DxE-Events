@@ -2,7 +2,6 @@ import React from 'react'
 import { getDxESFBayAreaEvents }  from './utils/ApiResponse'
 import SelectEvent from "./SelectEvent";
 import './events.css';
-import moment from 'moment';
 import AntdList from './antdList';
 
 class FB extends React.Component {

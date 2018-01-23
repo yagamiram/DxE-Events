@@ -1,10 +1,11 @@
 import React from 'react';
-import { List, Avatar, Icon } from 'antd';
+import { List, Icon } from 'antd';
 import 'antd/dist/antd.css';
+import moment from 'moment';
 
-const IconText = ({ type, text }) => (
+const IconText = ({ type, text, event }) => (
     <span>
-    <Icon type={type} style={{ marginRight: 8 }} />
+    <Icon type={type} style={{ marginRight: 8 }} onMouseOver={event}/>
         {text}
   </span>
 );
@@ -45,7 +46,7 @@ class AntdList extends React.Component {
                 renderItem={item => (
                     <List.Item
                         key={item.title}
-                        actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
+                        actions={[<IconText type="clock-circle-o" text={moment(item.time).format("MMMM Do YYYY, h:mm:ss a")} event={() => {console.log("on click")}}/>, <IconText type="like-o" text={item.interest_count} event={() => {console.log("on click")}}/>, <IconText type="check-circle" text={item.attendingCount} event={() => {console.log("on click")}}/>]}
                         extra={<img width={272} alt="logo" src={item.avatar} />}
                     >
                         <List.Item.Meta
