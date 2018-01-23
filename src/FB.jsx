@@ -9,15 +9,16 @@ class FB extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            items : []
+            items : [],
+            hostedBy: 'Berkeley Animal Rights Center'
         }
         this.showEvents = this.showEvents.bind(this)
     }
     showEvents(value) {
         console.log("inside the show events", value)
-        getDxESFBayAreaEvents(value)
+        getDxESFBayAreaEvents(value.id)
             .then((values) => {
-                this.setState({ items: values })
+                this.setState({ items: values, hostedBy: value.name })
             })
     }
     componentDidMount() {
@@ -32,35 +33,7 @@ class FB extends React.Component {
         return (
             <div>
                 <SelectEvent onSelect={this.showEvents}/>
-                <br/>
-                {
-                    /*
-                 <div className="container">
-                    {this.state.items.map((event, index) => (
-                        <div className={`item${index}`} key={index}>
-                            <div className="eventTiming">
-                                <li className="eventEmptyRow"></li>
-                                <li className="eventMonth">{moment(`${event.start_time}`).format('MMM')}</li>
-                                <li className="eventDate">{moment(`${event.start_time}`).format('Do')}</li>
-                                <li className="eventDay">{moment(`${event.start_time}`).format('ddd')}</li>
-                                <li className="eventBorder"></li>
-                            </div>
-                            <div className="eventEmptySpace"></div>
-                            <div className="eventPicture">
-                                {event.cover ? <img src={event.cover.source} alt={"picture"} />  : " no url"}
-                            </div>
-                            <div className="eventPicture"></div>
-                            <div className="eventDescription"></div>
-                            <div className="eventCount"></div>
-                        </div>
-                    ))}
-                </div>
-                     */
-                }
-                {
-                    console.log("the state items in the render function of FB are:", this.state.items)
-                }
-                <AntdList eventList={this.state.items}/>
+                <AntdList eventList={this.state.items} hostedBy={this.state.hostedBy}/>
             </div>
 
         )

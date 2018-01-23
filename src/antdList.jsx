@@ -2,29 +2,11 @@ import React from 'react';
 import { List, Avatar, Icon } from 'antd';
 import 'antd/dist/antd.css';
 
-const listData = []
-for (let i=0; i < 50; i++) {
-    listData.push({
-        href: 'http://ant.design',
-        title: `ant design part ${i}`,
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-        description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-        content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.'
-    })
-}
-
-const pagination = {
-    pageSize: 1,
-    current: 1,
-    total: listData.length,
-    onChange: (() => {console.log("the pagination is called")})
-}
-
 const IconText = ({ type, text }) => (
     <span>
-        <Icon type={type} style={{ marginRight: 10 }}/>
+    <Icon type={type} style={{ marginRight: 8 }} />
         {text}
-    </span>
+  </span>
 );
 
 class AntdList extends React.Component {
@@ -32,12 +14,10 @@ class AntdList extends React.Component {
         super(props);
         console.log("Inside thr constructor of component AntList: ", this.props)
         this.listData = []
-    }
-    componentWillMount() {
-        console.log("Inside the component will mount of AntDList")
-    }
-    componentDidMount() {
-        console.log("Inside the component did mount of AntList")
+        this.state = {
+            likeCount: 0,
+            dislikeCount: 0
+        }
     }
     componentWillReceiveProps(newProps) {
         console.log("inside the component will receive props of AntdList", newProps)
@@ -50,25 +30,17 @@ class AntdList extends React.Component {
                 attendingCount: eventBe.attending_count,
                 content: eventBe.description,
                 interest_count: eventBe.interested_count,
-                href: 'http://ant.design',
+                href: `http://www.facebool.com/${eventBe.id}`,
                 avatar: eventBe.cover.source,
-                description: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.'
+                description: `Hosted by ${newProps["hostedBy"]}`
             })
         }
     }
-    shouldComponentUpdate(newProps, newState) {
-        console.log("inside the function shouldComponentUpdate of the component AntdList")
-        console.log("new props: ", newProps)
-        console.log("the new state is: ", newState)
-        return true
-    }
     render() {
-        console.log("Inside the render function of the component AntdList");
         return (
             <List
                 itemLayout="vertical"
                 size="large"
-                pagination={pagination}
                 dataSource={this.listData}
                 renderItem={item => (
                     <List.Item
@@ -77,7 +49,6 @@ class AntdList extends React.Component {
                         extra={<img width={272} alt="logo" src={item.avatar} />}
                     >
                         <List.Item.Meta
-                            avatar={<Avatar src={item.avatar} />}
                             title={<a href={item.href}>{item.title}</a>}
                             description={item.description}
                         />
