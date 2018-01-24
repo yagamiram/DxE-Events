@@ -8,7 +8,7 @@ class FB extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            items : [],
+            items : {},
             hostedBy: 'Berkeley Animal Rights Center'
         }
         this.showEvents = this.showEvents.bind(this)
@@ -16,15 +16,16 @@ class FB extends React.Component {
     showEvents(value) {
         console.log("inside the show events", value)
         getDxESFBayAreaEvents(value.id)
-            .then((values) => {
-                this.setState({ items: values, hostedBy: value.name })
+            .then((items) => {
+                this.setState({ items: {...items}, hostedBy: value.name })
             })
     }
     componentDidMount() {
         console.log("Inside the component did mount of FB")
         getDxESFBayAreaEvents(171904216553096) // Load the default DxE page events
-            .then((values) => {
-                this.setState({ items: values })
+            .then((items) => {
+                console.log("the type of value is: ", typeof items, items)
+                this.setState({ items: {...items} })
         })
     }
     render() {
