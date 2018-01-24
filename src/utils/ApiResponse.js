@@ -6,6 +6,7 @@ export function getDxESFBayAreaEvents (eventId) {
       return data.data
     })
     .catch(function (error) {
+
       console.log(JSON.stringify(error))
     })
 }
