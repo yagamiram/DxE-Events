@@ -20,7 +20,8 @@ class AntdList extends React.Component {
         this.listData = []
         this.state = {
             likeCount: 0,
-            dislikeCount: 0
+            dislikeCount: 0,
+            showMore: false
         }
     }
     componentWillReceiveProps(newProps) {
@@ -33,9 +34,11 @@ class AntdList extends React.Component {
             console.log("The eventBe is", eventBe)
             this.listData.unshift({
                 title: eventBe.name,
-                time: eventBe.start_time,
+                startTime: eventBe.start_time,
+                endTime: eventBe.end_time,
                 attendingCount: eventBe.attending_count,
-                content: eventBe.description,
+                moreText: eventBe.description.substr(101),
+                lessText: eventBe.description.substr(0, 100) + "\u2026",
                 interest_count: eventBe.interested_count,
                 href: `http://www.facebool.com/${eventBe.id}`,
                 avatar: eventBe.cover.source,
@@ -48,40 +51,47 @@ class AntdList extends React.Component {
         let street = _.get(place, 'location.street', undefined)
         let city = _.get(place, 'location.city', undefined)
         let state = _.get(place, 'location.state', undefined)
+
         if (street && city && state) return street + ', ' + city + ', ' + state
-        if (street) return street
-        if (city) return city
-        if (state) return state
         if (street && city) return street + ', ' + city
         if (street && state) return street + ', ' + state
         if (city && state) return city + ' ,' + state
+        if (street) return street
+        if (city) return city
+        if (state) return state
         else return 'Location not revealed'
     }
     render() {
         return (
-            <List
-                itemLayout="vertical"
-                size="large"
-                dataSource={this.listData}
-                renderItem={item => (
-                    <List.Item
-                        key={item.title}
-                        actions={[
-                            <IconText type="clock-circle-o" text={moment(item.time).format("MMMM Do YYYY, h:mm:ss a")} toolTipText={"Time"} event={() => {console.log("on click")}}/>,
-                            <IconText type="like-o" text={item.interest_count} toolTipText={"Interested Count"}/>,
-                            <IconText type="check-circle-o" text={item.attendingCount} toolTipText={"Attending Count"}/>,
-                            <IconText type="environment-o" text={this.findLocation(item.place)} toolTipText={"Location"}/>
-                        ]}
-                        extra={<img width={272} alt="logo" src={item.avatar} />}
-                    >
-                        <List.Item.Meta
-                            title={<a href={item.href}>{item.title}</a>}
-                            description={item.description}
-                        />
-                        {item.content}
-                    </List.Item>
-                )}
-            />
+            <div>
+                <List
+                    itemLayout="vertical"
+                    size="large"
+                    dataSource={this.listData}
+                    renderItem={item => (
+                        <List.Item
+                            key={item.title}
+                            className="eventDescriptionInAnt"
+                            actions={[
+                                <IconText type="calendar" text={moment(item.startTime).format("MMMM Do YYYY")} toolTipText={"Date"}/>,
+                                <IconText type="clock-circle-o" text={moment(item.startTime).format("h:mm:ss a")} toolTipText={"Start Time"}/>,
+                                <IconText type="clock-circle" text={moment(item.endTime).format("h:mm a")} toolTipText={"End Time"}/>,
+                                <IconText type="like-o" text={item.interest_count} toolTipText={"Interested Count"}/>,
+                                <IconText type="check-circle-o" text={item.attendingCount} toolTipText={"Attending Count"}/>,
+                                <IconText type="environment-o" text={this.findLocation(item.place)} toolTipText={"Location"}/>
+                            ]}
+                            extra={<img width={272} alt="logo" src={item.avatar} />}
+                        >
+                            <List.Item.Meta
+                                title={<a href={item.href}>{item.title}</a>}
+                                description={item.description}
+                            />
+                            {this.state.showMore ? <p className="read-more-target">{item.moreText}</p> : <p className="read-more-target">{item.lessText}</p>}
+                            <a href={"#"} className="showMoreLessLink" onClick={() => { this.setState({ showMore: !this.state.showMore }) }} >{this.state.showMore ? 'Show Less' : 'Show More'}</a>
+                        </List.Item>
+                    )}
+                />
+            </div>
         )
     }
 }

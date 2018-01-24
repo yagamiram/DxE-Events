@@ -70,3 +70,11 @@ div[class^="item"], div[class*=" item"] {
 .eventCount {
     grid-area: count;
 }
+
+body {
+    padding: 20px;
+}
+
+.read-more-target {
+    transition: .25s ease;
+}
