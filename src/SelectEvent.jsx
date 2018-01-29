@@ -19,10 +19,6 @@ class SelectEvent extends React.Component {
                  name: "Direct Action Everywhere"
              },
              {
-                 id: 1241870835861939,
-                 name: "Berkeley Coalition For Animals"
-             },
-             {
                  id: 1377014279263790,
                  name: "DxE - SF Bay Area"
              }

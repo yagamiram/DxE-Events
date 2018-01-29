@@ -71,10 +71,39 @@ div[class^="item"], div[class*=" item"] {
     grid-area: count;
 }
 
-body {
-    padding: 20px;
-}
-
 .read-more-target {
     transition: .25s ease;
+    white-space: pre-line;
+}
+
+.showMoreLessBtn, .showMoreLessBtn:focus, .showMoreLessBtn:active {
+    /* Remove all decorations to look like normal text */
+    background: none;
+    border: none;
+    display: inline;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    outline-offset: 0;
+
+    /* Additional styles to look like a link */
+    color: #4ea3e4;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.showMoreLessBtn:hover {
+    text-decoration: none;
+}
+
+.eventImg {
+    margin-top: 20px;
+    padding-right: 5px;
+}
+
+.eventTitle>a {
+    text-transform: none;
+    color: rgba(0, 0, 0, 0.85);
+    text-decoration: none !important;
 }
